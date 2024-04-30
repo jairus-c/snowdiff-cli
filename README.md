@@ -65,6 +65,7 @@ pyyaml = "*"
    pip install -e git+https://github.com/jairus-c/snowdiff-cli.git#egg=snowdiff-cli
    ```
 5. Run the command ```pip freeze``` in your virtual environment and look for the output below to verify the installation:
+   - Can also run ```snow-diff -h``` to verify installation
   ```
   snow-diff @ file:///C:/Users/JairusMartinez/OneDrive%20-%20Curaleaf/Desktop/snowdiff-cli
   -e git+https://github.com/jairus-c/snowdiff-cli.git@6990bfd9f1842c1ae14b56ac127fb8129a9d7e88#egg=snowdiff_cli
@@ -117,7 +118,7 @@ Enter a filter condition for the comparison query: {ENTER FILTER CONDITION TO LI
 # Quirks to Usage
 - This tool may have plenty of bugs to discvoer! ;)
   - I have not gotten to creating high coverage unittests for the Python source code
-- AEs at Curaleaf do not have access to the production environment in snowflake in terms of writing data and creating jobs; however, you still need to put the prod credentials in the ```profiles.yml``` file so this tool can acuually use your credenitals.
+- AEs at Curaleaf do not have access to the production environment in snowflake in terms of writing data and creating jobs; however, you still need to put the prod credentials in the ```profiles.yml``` file so this tool can actually use your credenitals.
 - You NEED to know an appropriate column beforehand to filter before you make the comparison
   - using the ```--filter``` flag in the CLI necesitates the use of closed parenthesis but using the user input does not (reference the examples above)
   - A filter condition is needed to run the comparisons
@@ -137,7 +138,7 @@ Enter a filter condition for the comparison query: {ENTER FILTER CONDITION TO LI
 - Shape comparison
   - Compares the difference in the columns and row counts
 - Numeric comparison
-  - Gets the five-number descriptive statistics of both resulting tables and runs a simple percent difference across all values, and calculates the mean
+  - Gets the percent difference across all values between the two tables and calculates the mean of these differences
   - __The closer the mean of these differences is to 0, the better__
 - Categorical comparison
   - Gets the frequency ratio of each unique categorical value in a column of one table and divdes it by the same value of the second table
