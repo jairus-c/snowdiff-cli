@@ -22,4 +22,4 @@ snowflake-connector-python = "*"
 setuptools = "*"
 
 [project.scripts]
-snow-diff = "snowdiff.__main__:main"
+snow-diff = "src.__main__:main"

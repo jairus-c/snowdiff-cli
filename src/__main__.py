@@ -1,7 +1,7 @@
 import os
 import yaml
 import argparse
-from snowdiff.utils import expected_profile, snowflake_connector
+from src.utils import expected_profile, snowflake_connector
 
 
 def parse_arguments():
