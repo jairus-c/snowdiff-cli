@@ -56,7 +56,7 @@ dbt-snowflake = "*"
 pyyaml = "*"
 ```
 
-# Downloading Snow Diff CLI Package:
+# Downloading the Snow Diff CLI Package:
 1. Activate your dbt virtual environment
 2. Make sure the packages above are installed
 3. In your dbt virtual environment run the command:
@@ -118,7 +118,7 @@ Enter a filter condition for the comparison query: {ENTER FILTER CONDITION TO LI
 - This tool may have plenty of bugs to discvoer! ;)
   - I have not gotten to creating high coverage unittests for the Python source code
 - AEs at Curaleaf do not have access to the production environment in snowflake in terms of writing data and creating jobs; however, you still need to put the prod credentials in the ```profiles.yml``` file so this tool can acuually use your credenitals.
-- You NEED to know a good column to filter before you make the comparison
+- You NEED to know an appropriate column beforehand to filter before you make the comparison
   - using the ```--filter``` flag in the CLI necesitates the use of closed parenthesis but using the user input does not (reference the examples above)
   - A filter condition is needed to run the comparisons
 - If the CLI input does not get arguments for the table or filter, it will automatically redirect you to the user input
