@@ -134,12 +134,12 @@ Enter a filter condition for the comparison query: {ENTER FILTER CONDITION TO LI
 
 # How are the metrics calculated? ... and what do they mean?
 
-1. Shape comparison
+- Shape comparison
   - Compares the difference in the columns and row counts
-2. Numeric comparison
+- Numeric comparison
   - Gets the five-number descriptive statistics of both resulting tables and runs a simple percent difference / absolute difference across all values
   - __The closer the mean of these differences is to 0, the better__
-3. Categorical comparison
+- Categorical comparison
   - Gets the frequency ratio of each unique categorical value in a column of one table and divdes it by the same value of the second table
   - This metric shows how aligned the values / value counts of each categorical column is between the two tables
       - Captures frequency/ordinance and presence of distinct values
