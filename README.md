@@ -3,7 +3,7 @@
 This is a CLI tool that allows dbt users to quickly see a high-level difference between a table that exists in both the production and development environments. It utilizes the dbt ```project.yml``` file to get the needed Snowflake credentials/schemas and 
 then queries from both databases to then numerically compare the outputs of the table. 
 
-What will it output?
+## What will it output?
 
 If you are working on existing models and want to compare your changes in the development environment to that in the production environment, you can use this tool to get metrics about the
 1. Differences in shape for the two resulting tables
