@@ -1,6 +1,6 @@
 # Snow Diff CLI
 
-This is a CLI tool that allows dbt users to quickly see a high-level difference between a table that exists in both the production and development environments. It utilizes the dbt ```project.yml``` file to get the needed Snowflake credentials/schemas and 
+This is a CLI tool that allows dbt core / dbt Cloud CLI users to quickly see a high-level difference between a table that exists in both the production and development environments. It utilizes the dbt ```project.yml``` file to get the needed Snowflake credentials/schemas and 
 then queries from both databases to then numerically compare the outputs of the table. 
 
 ## What will it output?
