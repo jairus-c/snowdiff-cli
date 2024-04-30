@@ -3,6 +3,7 @@ import yaml
 import argparse
 from snowdiff.utils import expected_profile, snowflake_connector
 
+
 def parse_arguments():
     """
     Parses arguments for main script as CLI flags. If no --flags,
@@ -12,22 +13,22 @@ def parse_arguments():
     Returns:
         ArgumentParser.parse_args() object
     """
-    parser = argparse.ArgumentParser(description="Compare tables between environments.")
+    parser = argparse.ArgumentParser(
+        description="Compare tables between prod/dev environments in Snowflake via dbt project.yml file."
+    )
 
     # Add arguments for table name and filter
+    parser.add_argument(
+        "-t", "--table", type=str, help="Name of the Snowflake table to compare."
+    )
+    parser.add_argument(
+        "-f", "--filter", type=str, help="Filter condition for the comparison query."
+    )
     parser.add_argument(
         "-cs",
         "--custom-schema",
         type=str,
         help="Name of the custom Snowflake schema to compare.",
-    )
-    parser.add_argument(
-        "-t",
-        "--table", type=str, help="Name of the Snowflake table to compare."
-    )
-    parser.add_argument(
-        "-f",
-        "--filter", type=str, help="Filter condition for the comparison query."
     )
 
     args = parser.parse_args()
@@ -72,7 +73,7 @@ def load_profile_data(username):
     """
     # Construct the file path using the username
     try:
-        # mac 
+        # mac
         profiles_path = os.path.join("/Users", username, ".dbt", "profiles.yml")
     except:
         # windows
@@ -158,9 +159,9 @@ def main():
 
     ep.compare()
     print("---" * 25)
-    print('DataFrame Key:\n')
-    print(f'df_1 = {DATABASE_PROD}.{SCHEMA_PROD}.{TABLE}')
-    print(f'df_2 = {DATABASE_DEV}.{SCHEMA_DEV}.{TABLE}')
+    print("DataFrame Key:\n")
+    print(f"df_1 = {DATABASE_PROD}.{SCHEMA_PROD}.{TABLE}")
+    print(f"df_2 = {DATABASE_DEV}.{SCHEMA_DEV}.{TABLE}")
     print("---" * 15)
     print("\nTable Shape Differences:\n")
     print(ep.shapes)
