@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "snow-diff"
+authors = [
+    {name = "Jairus Martinez", email = "jairus.martinez@curaleaf.com"},
+]
+description = """
+Utilizes dbt project.yml to run queries against SnowFlake in order to compare
+expected values between a table in the development and production environment.
+"""
+readme = "README.md"
+version = "1.0.0"
+
+[dependencies]
+pyyaml = "*"
+pandas = "*"
+numpy = "*"
+snowflake-connector-python = "*"
+setuptools = "*"
+
+[project.scripts]
+snow-diff = "snowdiff.__main__:main"

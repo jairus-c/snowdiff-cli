@@ -1,0 +1,2 @@
+[console_scripts]
+snow-diff = snowdiff.__main__:main
