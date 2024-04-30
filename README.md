@@ -7,7 +7,7 @@ then queries from both databases to then numerically compare the outputs of the 
 
 If you are working on existing models and want to compare your changes in the development environment to that in the production environment, you can use this tool to get metrics about the
 1. Differences in shape for the two resulting tables
-2. Average mean percent/absolute difference for each numeric column
+2. Average mean percent difference for each numeric column
 3. Average mean frequency ratio for each categorical column
 
 Note:
@@ -137,7 +137,7 @@ Enter a filter condition for the comparison query: {ENTER FILTER CONDITION TO LI
 - Shape comparison
   - Compares the difference in the columns and row counts
 - Numeric comparison
-  - Gets the five-number descriptive statistics of both resulting tables and runs a simple percent difference / absolute difference across all values
+  - Gets the five-number descriptive statistics of both resulting tables and runs a simple percent difference across all values, and calculates the mean
   - __The closer the mean of these differences is to 0, the better__
 - Categorical comparison
   - Gets the frequency ratio of each unique categorical value in a column of one table and divdes it by the same value of the second table
