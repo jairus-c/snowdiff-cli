@@ -64,7 +64,7 @@ pyyaml = "*"
    ```
    pip install -e git+https://github.com/jairus-c/snowdiff-cli.git#egg=snowdiff-cli
    ```
-5. Run the command pip freeze in your virtual environment and look for the output below to verify the installation:
+5. Run the command ```pip freeze``` in your virtual environment and look for the output below to verify the installation:
   ```
   snow-diff @ file:///C:/Users/JairusMartinez/OneDrive%20-%20Curaleaf/Desktop/snowdiff-cli
   -e git+https://github.com/jairus-c/snowdiff-cli.git@6990bfd9f1842c1ae14b56ac127fb8129a9d7e88#egg=snowdiff_cli
