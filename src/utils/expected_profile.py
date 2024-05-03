@@ -48,30 +48,35 @@ class ExpectedProfiler:
         self.avg_frequency_ratio = None
         self.frequency_differences = None
 
-    def __assertions(self):
+    def __try_numeric_conversion(self, column : pd.Series):
         """
-        Checks assertions on the dataframes.
-
-        Raises exceptions if the assertions fail.
-
+        Attempt to convert a pandas Series to a numeric data type.
+        Args:
+        column (pandas.Series): The column to be converted.
+        Returns:
+        pandas.Series: The converted column if conversion is successful, otherwise the original column.
+        """
+        try:
+            # attempt to convert to numeric
+            converted_column = pd.to_numeric(column)
+            return converted_column
+        except:
+            # return string if not a number
+            column_string = column.astype('str')
+            return column_string
+        
+    def __convert_to_numeric(self):
+        """
+        Runs check to convert numeric columns 
+        in dataframe if appropriate.
         Args:
             None
         Returns:
             None
         """
-        # Assertion 1: Check if both dataframes have len() > 0
-        assert len(self.df_1) > 0, "DataFrame 1 has zero length."
-        assert len(self.df_2) > 0, "DataFrame 2 has zero length."
-
-        # Assertion 2: Check if both dataframes have the same exact column names
-        assert set(self.df_1.columns) == set(
-            self.df_2.columns
-        ), "Column names are not the same in both dataframes."
-
-        # Assertion 3: Check if both dataframes have the same number of numeric type columns
-        assert len(self.df_1.select_dtypes(include=np.number).columns) == len(
-            self.df_2.select_dtypes(include=np.number).columns
-        ), "Number of numeric type columns are not the same in both dataframes. Please cast approriately"
+        for col in self.df_1.columns:
+            self.df_1[col] = self.__try_numeric_conversion(self.df_1[col])
+            self.df_2[col] = self.__try_numeric_conversion(self.df_2[col])
 
     def __numeric_comparisons(self):
         """
@@ -182,9 +187,19 @@ class ExpectedProfiler:
             None
         """
         try:
-            self.__assertions()  # Check assertions
-        except AssertionError as e:
-            raise AssertionError("Assertion Error: {}".format(str(e)))
+            assert len(self.df_1) > 0, "DataFrame 1 has zero length."
+            assert len(self.df_2) > 0, "DataFrame 2 has zero length."
 
-        self.__numeric_comparisons()
-        self.__categorical_comparisons()
+            if set(self.df_1.columns) == set(self.df_2.columns):
+                self.__convert_to_numeric()
+                if len(self.df_1.select_dtypes(include=np.number).columns) == len(self.df_2.select_dtypes(include=np.number).columns):
+                    self.__numeric_comparisons()
+                    self.__categorical_comparisons()
+                else:
+                    pass                                                    
+            else:
+                pass
+        except AssertionError as e:
+            raise AssertionError("Assertion Error: {}\n Please check your table dtypes and/or filter parameter.".format(str(e)))
+        
+       
