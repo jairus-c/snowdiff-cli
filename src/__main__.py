@@ -69,7 +69,8 @@ def load_profile_data(username):
         username (str): The username used to construct the file path.
 
     Returns:
-        dict: A dictionary containing the account, password, user, and warehouse.
+        tuple: A tuple containing the user, account, warehouse, 
+        password, schema_prod, schema_dev.
     """
     # Construct the file path using the username
     try:
@@ -141,38 +142,47 @@ def main():
         user=USER, account=ACCOUNT, warehouse=WAREHOUSE, password=PASSWORD
     )
 
-    query_prod = f"""
-    select * 
-    from {DATABASE_PROD}.{SCHEMA_PROD}.{TABLE} 
-    where {FILTER} 
-    """
-    query_dev = f"""
-    select * 
-    from {DATABASE_DEV}.{SCHEMA_DEV}.{TABLE} 
-    where {FILTER} 
-    """
+    try:
+        query_prod = f"""
+        select * 
+        from {DATABASE_PROD}.{SCHEMA_PROD}.{TABLE} 
+        where {FILTER} 
+        """
+        query_dev = f"""
+        select * 
+        from {DATABASE_DEV}.{SCHEMA_DEV}.{TABLE} 
+        where {FILTER} 
+        """
 
-    df_prod = sc.query(query_prod)
-    df_dev = sc.query(query_dev)
+        df_prod = sc.query(query_prod)
+        df_dev = sc.query(query_dev)
 
-    ep = expected_profile.ExpectedProfiler(df_prod, df_dev)
+        ep = expected_profile.ExpectedProfiler(df_prod, df_dev)
 
-    ep.compare()
-    print("---" * 25)
-    print("DataFrame Key:\n")
-    print(f"df_1 = {DATABASE_PROD}.{SCHEMA_PROD}.{TABLE}")
-    print(f"df_2 = {DATABASE_DEV}.{SCHEMA_DEV}.{TABLE}")
-    print("---" * 15)
-    print("\nTable Shape Differences:\n")
-    print(ep.shapes)
-    print("---" * 15)
-    print("\nMean Percent Differences Between Numeric Columns:\n")
-    print(ep.percent_differences.loc["mean"])
-    print("---" * 25)
-    print("\nMean Frequency Ratio of Categorical Columns\n")
-    for col, ratio in ep.avg_frequency_ratio.items():
-        print(f"{col}: {ratio}")
-    print("---" * 15)
+        ep.compare()
+        print("---" * 25)
+        print("DataFrame Key:\n")
+        print(f"df_1 = {DATABASE_PROD}.{SCHEMA_PROD.upper()}.{TABLE.upper()}")
+        print(f"df_2 = {DATABASE_DEV}.{SCHEMA_DEV.upper()}.{TABLE.upper()}")
+        #print("---" * 15)
+        print("\nTable Shape Differences:\n")
+        print(ep.shapes)
+
+        # if ep.compare() ran succesfully:
+        try:
+            assert ep.percent_differences != None
+            print("---" * 15)
+            print("\nMean Percent Differences Between Numeric Columns:\n")
+            print(ep.percent_differences.loc["mean"])
+            print("---" * 25)
+            print("\nMean Frequency Ratio of Categorical Columns\n")
+            for col, ratio in ep.avg_frequency_ratio.items():
+                print(f"{col}: {ratio}")
+        except:
+            pass
+        print("---" * 25)
+    except Exception as e:
+        print(f"An error occurred with the query:\n {str(e)}")
 
 
 if __name__ == "__main__":
