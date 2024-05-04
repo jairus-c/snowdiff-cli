@@ -14,7 +14,7 @@ Note:
 - Both tables should have the same exact structure and should ideally have correct type casting.
 
 ## Default Behaviour:
-If columns don't match or data types cannot be adequetly cast to the correct types between tables, snow-diff will output just a comparison of the shapes of the tables. This should theoretically give a solid preview into whether your expectations are in line with the development table vs the production table.
+If columns don't match or data types cannot be adequetely cast to the correct types between tables, snow-diff will output just a comparison of the shapes of the tables. This should theoretically give a solid preview into whether your expectations are in line with the development table vs the production table.
 
 
 ## Requirements:
