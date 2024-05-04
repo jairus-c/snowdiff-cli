@@ -76,7 +76,7 @@ def load_profile_data(username):
     try:
         # mac
         profiles_path = os.path.join("/Users", username, ".dbt", "profiles.yml")
-    except:
+    except (OSError, FileNotFoundError):
         # windows
         profiles_path = os.path.join("C:\\Users", username, ".dbt", "profiles.yml")
 
@@ -169,8 +169,7 @@ def main():
         print(ep.shapes)
 
         # if ep.compare() ran succesfully:
-        try:
-            assert ep.percent_differences != None
+        if ep.percent_differences != None:
             print("---" * 15)
             print("\nMean Percent Differences Between Numeric Columns:\n")
             print(ep.percent_differences.loc["mean"])
@@ -178,7 +177,7 @@ def main():
             print("\nMean Frequency Ratio of Categorical Columns\n")
             for col, ratio in ep.avg_frequency_ratio.items():
                 print(f"{col}: {ratio}")
-        except:
+        else:
             pass
         print("---" * 25)
     except Exception as e:
