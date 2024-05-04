@@ -33,12 +33,22 @@ def parse_arguments():
 
     args = parser.parse_args()
 
-    if not (args.table and args.filter):
+    if not args.table and not args.filter:  # If table and filter are not provided
         print("Schema, table, and filter are required. Please provide values.")
         custom_schema, table, filter_condition = get_user_input()
-        args.custom_schema = custom_schema if custom_schema else args.custom_schema
-        args.table = table if table else args.table
-        args.filter = filter_condition if filter_condition else args.filter
+        args.custom_schema = custom_schema
+        args.table = table
+        args.filter = filter_condition
+    elif not args.table:  # If only table is missing
+        print("A table is also required. Please provide a table name or custom schema if appropriate.")
+        args.table = input("Enter table name: ")
+        args.custom_schema = input("Enter custom schema (leave blank if default): ")
+    elif not args.filter:  # If only filter is missing
+        print("A filter is also required. Please provide a filter condition or custom schema if appropriate")
+        args.filter = input("Enter filter condition: ")
+        args.custom_schema = input("Enter custom schema (leave blank if default): ")
+
+    return args
 
     return args
 
