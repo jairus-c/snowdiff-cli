@@ -1,0 +1,2 @@
+[console_scripts]
+snow-diff = src.__main__:main

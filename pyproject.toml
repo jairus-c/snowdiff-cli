@@ -21,5 +21,8 @@ numpy = "*"
 snowflake-connector-python = "*"
 setuptools = "*"
 
+[tool.setuptools]
+packages = ["src", "src.utils"]
+
 [project.scripts]
 snow-diff = "src.__main__:main"

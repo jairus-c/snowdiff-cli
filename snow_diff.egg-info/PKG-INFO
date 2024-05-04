@@ -1,6 +1,0 @@
-Metadata-Version: 2.1
-Name: snow-diff
-Version: 1.0.0
-Summary: Utilizes dbt project.yml to run queries against SnowFlake in order to compare
-Author-email: Jairus Martinez <jairus.martinez@curaleaf.com>
-Description-Content-Type: text/markdown
