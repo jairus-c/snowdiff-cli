@@ -23,7 +23,8 @@ class ExpectedProfiler:
         __numeric_comparions: Initializes class attributes related to numeric comparisons
         __categorical_comparisons: Initializes class attributes related to categorical comparisons
         __get_dataframe_shapes: Initializes shapes class attributes
-        __assertions: Checks assertions on the dataframes
+       __try_numeric_conversion: Attempts to convert pd.Series to numeric columns if appropriate
+       __convert_to_numeric: Loops through all columns and runs __try_numeric_conversion
     """
 
     def __init__(self, df_1, df_2):
