@@ -109,9 +109,9 @@ You can also simply run ```snow-diff``` in the CLI and you will be prompted to i
 
 ```
 Schema, table, and filter are required. Please provide values.
-Enter the name of the Snowflake table to compare: {ENTER SNOWFLAKE TABLE HERE}
-Enter custom schema of the Snowflake table (leave blank if default): {ENTER CUSTOM SNOWFLAKE SCHEMA HERE}
-Enter a filter condition for the comparison query: {ENTER FILTER CONDITION TO LIMIT COMPUTE}
+Enter the name of the Snowflake table to compare: **{ENTER SNOWFLAKE TABLE HERE}**
+Enter custom schema of the Snowflake table (leave blank if default): **{ENTER CUSTOM SNOWFLAKE SCHEMA HERE}**
+Enter a filter condition for the comparison query: **{ENTER FILTER CONDITION TO LIMIT COMPUTE}**
 ```
 
 1. Querying from the default schema
