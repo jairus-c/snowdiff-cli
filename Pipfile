@@ -12,6 +12,9 @@ setuptools = "*"
 
 [dev-packages]
 black = "*"
+pytest = "*"
+install = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.12"
