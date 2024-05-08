@@ -45,10 +45,17 @@ class TestExpectedProfiler:
 
     def test_compare(self, profiler):
         profiler.compare()
-        assert profiler.percent_differences is not None
-        assert profiler.absolute_differences is not None
-        assert profiler.avg_frequency_ratio is not None
-        assert profiler.frequency_differences is not None
 
+        # test percent_differences
+        assert np.allclose(profiler.percent_differences, ((df_1.describe() - df_2.describe()) / df_1.describe()) * 100)
+        
+        # test absolute_differences
+        assert np.allclose(profiler.absolute_differences, (df_1.describe() - df_2.describe()).abs())
+
+        # test avg_frequency_ratio
+        assert profiler.avg_frequency_ratio == {'B': 0.8333333333333334}
+
+        # test frequency_differences
+        assert (profiler.frequency_differences['B']['absolute_difference'] == pd.Series([1, 0, 0], index=['a', 'c', 'd'])).all()
 if __name__ == "__main__":
     pytest.main()
