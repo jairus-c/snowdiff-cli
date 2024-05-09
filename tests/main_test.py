@@ -28,22 +28,17 @@ def test_parse_arguments(mock_parse_args):
 def test_get_user_input(mock_input):
     assert get_user_input() == ('test_schema', 'test_table', 'test_filter')
 
-# @patch('builtins.open', new_callable=mock_open)
-# @patch('os.getenv', MagicMock(return_value='test_user'))
-# def test_load_profile_data(mock_open):
-#     mock_open.return_value.read.return_value = """
-#     default:
-#       outputs:
-#         dev:
-#           account: test_account
-#           password: test_password
-#           user: test_user
-#           warehouse: test_warehouse
-#           schema: test_schema
-#         prod:
-#           schema: test_schema_prod
-#     """
-#     assert load_profile_data('test_user') == ('test_user', 'test_account', 'test_warehouse', 'test_password', 'test_schema_prod', 'test_schema')
+def test_load_profile_data():
+    USER, ACCOUNT, WAREHOUSE, PASSWORD, SCHEMA_PROD_DEFAULT, SCHEMA_DEV_DEFAULT = (
+        load_profile_data(username)
+    )
+
+    assert USER is not None
+    assert ACCOUNT is not None
+    assert WAREHOUSE is not None
+    assert PASSWORD is not None
+    assert SCHEMA_PROD_DEFAULT is not None
+    assert SCHEMA_DEV_DEFAULT is not None
 
 @patch('os.getenv', MagicMock(return_value=username))
 @patch('src.utils.snowflake_connector.SnowflakeConnector')
