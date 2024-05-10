@@ -26,7 +26,7 @@ If columns don't match or data types cannot be adequetely cast to the correct ty
 default:
   outputs:
     dev:
-      account: zb45354.east-us-2.azure
+      account: your-snowflake-accunt-id
       database: SANDBOX_EDW
       password: your-snowflake-password
       role: ANALYTICS_ENGINEER
@@ -34,9 +34,9 @@ default:
       threads: 4
       type: snowflake
       user: your-curaleaf-email
-      warehouse: WH_BI_PRD
+      warehouse: your-snowflake-warehouse
     prod:
-      account: zb45354.east-us-2.azure
+      account: your-snowflake-accunt-id
       database: PRD_EDW_DBT
       password: your-snowflake-password
       role: ANALYTICS_ENGINEER
@@ -44,7 +44,7 @@ default:
       threads: 4
       type: snowflake
       user: your-curaleaf-email
-      warehouse: WH_BI_PRD
+      warehouse: your-snowflake-warehouse
   target: dev
 ```
 - Have dbt-core / dbt-cloud CLI set up
