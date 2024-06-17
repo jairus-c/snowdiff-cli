@@ -14,6 +14,14 @@ df_2 = pd.DataFrame({
     'B': ['a', 'a', 'c', 'd']
 })
 
+df_3 = pd.DataFrame({
+    'A': [1, 2, 3],
+    'B': [4.0, 5.5, 6.1],
+    'C': [pd.Timestamp('20230101'), pd.Timestamp('20230102'), pd.Timestamp('20230103')],
+    'D': ['foo', 'bar', 'baz']
+})
+
+
 class TestExpectedProfiler:
     @pytest.fixture
     def profiler(self):
@@ -57,5 +65,11 @@ class TestExpectedProfiler:
 
         # test frequency_differences
         assert (profiler.frequency_differences['B']['absolute_difference'] == pd.Series([1, 0, 0], index=['a', 'c', 'd'])).all()
+
+    def test_drop_time_cols(self, profiler):
+        all_columns = df_3.columns
+        time_dropped_columns = profiler._ExpectedProfiler__drop_timestamps(df_3).columns
+        assert len(all_columns) != len(time_dropped_columns)
+        assert set(time_dropped_columns) == set(['A', 'B', 'D'])
 if __name__ == "__main__":
     pytest.main()
