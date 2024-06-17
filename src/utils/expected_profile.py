@@ -49,6 +49,18 @@ class ExpectedProfiler:
         self.avg_frequency_ratio = None
         self.frequency_differences = None
 
+    def __drop_timestamps(self, df: pd.DataFrame):
+        """
+        Drops all timestamp-like columns from dataframe.
+        Args:
+            df (pd.DataFrame) : DataFrame
+        Returns:
+            df_no_time (pd.DataFrame) : Dataframe without timestampped columns
+        """
+        timestamp_cols = df.select_dtypes(include=['datetime64']).columns
+        df_no_time = df.drop(columns=timestamp_cols)
+        
+        return df_no_time
     def __try_numeric_conversion(self, column : pd.Series):
         """
         Attempt to convert a pandas Series to a numeric data type.
@@ -187,13 +199,16 @@ class ExpectedProfiler:
         Returns:
             None
         """
-        try:
-            assert len(self.df_1) > 0, "DataFrame 1 has zero length."
-            assert len(self.df_2) > 0, "DataFrame 2 has zero length."
+        df_1 = self.__drop_timestamps(self.df_1)
+        df_2 = self.__drop_timestamps(self.df_2)
 
-            if set(self.df_1.columns) == set(self.df_2.columns):
+        try:
+            assert len(df_1) > 0, "DataFrame 1 has zero length."
+            assert len(df_2) > 0, "DataFrame 2 has zero length."
+
+            if set(df_1.columns) == set(df_2.columns):
                 self.__convert_to_numeric()
-                if len(self.df_1.select_dtypes(include=np.number).columns) == len(self.df_2.select_dtypes(include=np.number).columns):
+                if len(df_1.select_dtypes(include=np.number).columns) == len(df_2.select_dtypes(include=np.number).columns):
                     self.__numeric_comparisons()
                     self.__categorical_comparisons()
                 else:

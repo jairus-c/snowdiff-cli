@@ -9,6 +9,7 @@ pandas = "*"
 numpy = "*"
 snowflake-connector-python = "*"
 setuptools = "*"
+pytest-mock = "*"
 
 [dev-packages]
 black = "*"
